@@ -1,0 +1,18 @@
+---
+name: Initial workstation setup
+hosts: localhost
+gather: false
+
+vars: 
+  os_packages:
+    - htop
+    - mc
+    - tmux
+
+tasks: 
+  - name: Install OS packages
+    package: 
+      name: "{{ item }}"
+      state: present 
+    with_items: "{{ os_packages }}"
+
