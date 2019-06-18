@@ -11,6 +11,7 @@ vars:
 
 tasks: 
   - name: Install OS packages
+    become: true
     package: 
       name: "{{ item }}"
       state: present 
