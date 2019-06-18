@@ -3,19 +3,20 @@
   hosts: localhost
   gather_facts: true
   vars: 
+    ubuntu_packages:
+      - python-apt
+
     os_packages:
-    - htop
-    - mc
-    - tmux
+      - htop
+      - mc
+      - tmux
 
   tasks: 
     - name: Update by distribution
       become: true
       apt: 
-        name: "{{ item }}"
+        name: "{{ ubuntu_packages }}"
         state: present
-      with_items: 
-        - python-apt
       when: ansible_distribution == "Ubuntu"
 
     - name: Install OS packages
