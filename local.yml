@@ -1,7 +1,7 @@
 ---
 - name: Initial workstation setup
   hosts: localhost
-  gather: false
+  gather_facts: false
   vars: 
     os_packages:
     - htop
