@@ -14,7 +14,7 @@
   tasks: 
     - name: Update by distribution
       become: true
-      apt: 
+      package: 
         name: "{{ ubuntu_packages }}"
         state: present
       when: ansible_distribution == "Ubuntu"
