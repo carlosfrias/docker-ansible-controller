@@ -1,0 +1,31 @@
+---
+- name: Create build container
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Update docker python modules
+    pip:
+      name: ['docker-py', 'requests']
+      state: present
+
+  - name: Log into DockerHub
+    docker_login:
+      username: "carlosfrias"
+      password: "{{ password }}"
+
+  - name: Build docker container
+    docker_container:
+      name: deployment-host
+      state: started
+      restart: yes
+      recreate: yes
+      image: centos:centos8
+      interactive: yes
+      tty: yes
+      working_dir: "/opt/workstation_setup"
+      volumes:
+        - "{{ playbook_dir }}:/opt/workstation_setup"
+        - "{{ '~/.ssh' | expanduser }}:/root/.ssh"
+        - "{{ '~/.ansible' | expanduser }}:/root/.ansible"
+      command: ["bash"]

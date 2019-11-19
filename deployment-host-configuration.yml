@@ -1,0 +1,72 @@
+---
+- name: Initial workstation setup
+  hosts: localhost
+  gather_facts: false
+
+  vars: 
+    openstack_version: "train"
+
+    os_packages_pre_req:
+      - https://rdoproject.org/repos/openstack-{{ openstack_version }}/rdo-release-{{ openstack_version }}.rpm
+
+    os_packages_required:
+      - openssh-server
+      - sudo
+      - "@Development Tools"
+#      - ntp
+#      - ntpdate
+#      - python-dev
+
+    os_packages_optional:
+#      - bridge-utils
+      - iputils
+      - lsof
+      - lvm2
+      - chrony
+#      - htop
+      - mc
+      - tmux
+#      - build-essential
+      - git
+#      - debootstrap
+#      - ifenslave
+#      - ifenslave-2.6
+      - tcpdump
+#      - vlan
+      - tree
+
+#    ansible_bender:
+#      base_image: ubuntu
+#      working_container:
+#        volumes:
+#          - "{{ playbook_dir }}:/opt/workstation-setup"
+#      target_image:
+#        name: workstation_setup
+#        working_dir: /opt/workstation-setup
+
+
+  roles:
+#    - { role: apigee-opdk-setup-selinux-disable }
+#    - { role: apigee-opdk-ssh-user }
+#    - { role: ansible-netplan }
+
+  tasks:
+    - name: Install Pre-Requisites OS packages
+      yum:
+        name: "{{ os_packages_pre_req }}"
+        state: present
+        use_backend: auto
+        update_cache: yes
+
+    - name: Install Required OS packages
+      yum:
+        name: "{{ os_packages_required }}"
+        state: present
+        use_backend: auto
+        update_cache: yes
+
+    - name: Install Optional OS packages
+      yum:
+        name: "{{ os_packages_optional }}"
+        state: present
+        use_backend: auto
