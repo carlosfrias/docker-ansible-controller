@@ -1,6 +1,4 @@
 [workstation]
-node1 ansible_ssh_host=192.168.0.107
-node2 ansible_ssh_host=192.168.0.168
-
-
+node1 ansible_ssh_host=192.168.0.120
+node2 ansible_ssh_host=192.168.0.121
 
