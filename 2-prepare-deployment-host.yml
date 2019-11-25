@@ -23,6 +23,8 @@
       dest: "{{ openstack_src_dir }}{{ deployment_dest_dir }}/openstack_user_config.yml"
       force: yes
 
-  - name: Reminder Operator to update openstack_user_config.yml
+  - name: **** Manually Update openstack_user_config.yml ***
     pause:
       prompt: "Update the file {{ openstack_src_dir }}{{ deployment_dest_dir }}/openstack_user_config.yml before it is transfered to the workstation nodes by the next script."
+      seconds: 15
+

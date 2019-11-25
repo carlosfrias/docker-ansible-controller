@@ -11,6 +11,10 @@
     become: true
     shell: "{{ openstack_src_dir }}/scripts/bootstrap-ansible.sh"
 
+  - name: Set Credentials
+    become: true
+    shell: "{{ openstack_src_dir }}/scripts/pw-token-gen.py --file {{ openstack_src_dir }}{{ deployment_dest_dir }}/user_secrets.yml"
+
 
 - name: Prepare Target Hosts
   hosts: workstation
@@ -49,6 +53,18 @@
     service:
       name: chrony
       state: restarted
+
+  - name: Initial Target Environment Script Installation
+    synchronize:
+      src:  "{{ openstack_src_dir }}{{ deployment_dest_dir }}"
+      dest: "{{ deployment_dest_dir | dirname }}"
+      archive: yes
+      compress: yes
+      dirs: yes
+      mode: push
+      partial: yes
+      recursive: yes
+      delete: yes
 
   - name: Initial Target Environment Script Installation
     synchronize:
