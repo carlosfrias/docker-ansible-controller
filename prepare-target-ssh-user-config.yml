@@ -1,0 +1,7 @@
+---
+- name: Configure SSH User on Hosts
+  hosts: workstation
+  become: true
+
+  roles:
+    - apigee-opdk-ssh-user

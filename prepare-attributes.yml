@@ -1,0 +1,40 @@
+---
+target_openstack_version: "train"
+openstack_src_dir: "/usr/local/src/openstack-ansible"
+deployment_dest_dir: "/etc/openstack_deploy"
+target_os_packages:
+  - bridge-utils
+  - debootstrap
+  - ifenslave
+  - ifenslave-2.6
+  - lsof
+  - lvm2
+  - chrony
+  - tcpdump
+  - vlan
+  - openssh-client
+  - mc
+  - tmux
+  - git
+  - tree
+  - htop
+  - build-essential
+  - rsync
+  - sshpass
+  - vim
+pip_packages:
+  - PyYaml
+deployment_os_packages:
+  - git
+  - rsync
+  - tree
+  - sshpass
+  - tmux
+  - ntp
+  - ntpdate
+  - openssh-server
+  - python3-pip
+  - python3-apt
+  - python3-dev
+  - sudo
+  - vim

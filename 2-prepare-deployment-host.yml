@@ -1,0 +1,28 @@
+---
+- name: Prepare Deployment Host
+  hosts: localhost
+
+  vars_files:
+  - prepare-attributes.yml
+
+  tasks:
+  - name: Install OS Packages
+    apt:
+      name: "{{ deployment_os_packages }}"
+      state: present
+
+  - name: Download Openstack Ansible
+    delegate_to: localhost
+    git:
+      repo: "https://github.com/openstack/openstack-ansible.git"
+      dest: "{{ openstack_src_dir }}"
+
+  - name: Initial Target Environment Configuration
+    copy:
+      src:  "{{ openstack_src_dir }}{{ deployment_dest_dir }}/openstack_user_config.yml.example"
+      dest: "{{ openstack_src_dir }}{{ deployment_dest_dir }}/openstack_user_config.yml"
+      force: yes
+
+  - name: Reminder Operator to update openstack_user_config.yml
+    pause:
+      prompt: "Update the file {{ openstack_src_dir }}{{ deployment_dest_dir }}/openstack_user_config.yml before it is transfered to the workstation nodes by the next script."
