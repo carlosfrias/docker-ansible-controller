@@ -3,6 +3,9 @@
   hosts: localhost
   gather_facts: false
 
+  vars:
+    control_server: "control-server"
+
   vars_files:
   - credentials.yml
 
@@ -17,9 +20,9 @@
       username: "carlosfrias"
       password: "{{ password }}"
 
-  - name: Build docker container
+  - name: Build Control Server Container
     docker_container:
-      name: deployment-host
+      name: "{{ control_server }}"
       state: started
       restart: yes
       recreate: yes
@@ -38,9 +41,11 @@
   - name: Prepare Deployment Host
     shell: "{{ item }}"
     with_items:
-    - "docker exec deployment-host apt-get update -y"
-    - "docker exec deployment-host apt-get dist-upgrade -y"
-    - "docker exec deployment-host apt-get install python3-pip openssh-client -y"
-    - "docker exec deployment-host pip3 install ansible"
-    - "docker exec deployment-host ansible-playbook /opt/workstation_setup/2-prepare-deployment-host.yml"
-    - "docker exec deployment-host ansible-playbook /opt/workstation_setup/3-configure-target-hosts.yml"
+    - "docker exec {{ control_server }} apt-get update -y"
+    - "docker exec {{ control_server }} apt-get dist-upgrade -y"
+    - "docker exec {{ control_server }} apt-get install python3-pip openssh-client -y"
+    - "docker exec {{ control_server }} pip3 install ansible"
+    - "docker exec {{ control_server }} ansible-playbook /opt/workstation_setup/2-prepare-deployment-host.yml"
+    - "docker exec {{ control_server }} ansible-playbook /opt/workstation_setup/3-update-with-configured-openstack_user_config.yml"
+    - "docker exec {{ control_server }} ansible-playbook /opt/workstation_setup/4-configure-target-hosts.yml"
+
