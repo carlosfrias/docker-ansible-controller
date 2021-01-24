@@ -1,0 +1,5 @@
+---
+# defaults file for /usr/local/google/home/friasc/apigee-workspace/apigee-opdk-role-workspace/apigee-opdk-admin-user
+pubkey_path: "{{ ssh_pubkey_path | default('~/.ssh/id_rsa.pub') }}"
+permit_root_login: False
+user: "{{ user_name | default(ansible_user_id) }}"

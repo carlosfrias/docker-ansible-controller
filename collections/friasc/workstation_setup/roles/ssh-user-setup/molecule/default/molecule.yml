@@ -1,0 +1,19 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: yamllint
+platforms:
+  - name: ubuntu1604
+    image: geerlingguy/docker-ubuntu1604-ansible
+    pre_build_image: true
+  - name: centos7
+    image: geerlingguy/docker-centos7-ansible
+    pre_build_image: true
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
