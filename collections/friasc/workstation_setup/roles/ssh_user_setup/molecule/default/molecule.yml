@@ -3,7 +3,11 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint: yamllint
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
 platforms:
   - name: ubuntu1604
     image: geerlingguy/docker-ubuntu1604-ansible
@@ -15,5 +19,3 @@ provisioner:
   name: ansible
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
