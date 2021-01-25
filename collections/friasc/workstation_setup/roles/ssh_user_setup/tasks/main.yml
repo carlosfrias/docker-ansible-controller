@@ -22,7 +22,7 @@
     create: yes
     mode: 0440
     line: "{{ item }}"
-    path: "/etc/sudoers.d/{{ ansible_user }}-user.conf"
+    path: "/etc/sudoers"
     validate: '/usr/sbin/visudo -cf %s'
   with_items:
     - "{{ ansible_user }} ALL=(ALL) NOPASSWD:ALL"
