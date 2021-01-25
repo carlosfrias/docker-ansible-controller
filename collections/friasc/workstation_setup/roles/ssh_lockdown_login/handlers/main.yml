@@ -1,0 +1,6 @@
+---
+# handlers file for ssh_lockdown_login
+- name: Restart SSH service
+  service:
+    name: sshd
+    state: restarted

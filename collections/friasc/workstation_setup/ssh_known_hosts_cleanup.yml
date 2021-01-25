@@ -1,0 +1,11 @@
+---
+- name: Clean up my known_hosts file
+  hosts: all
+  gather_facts: no
+
+
+  roles:
+  - ssh_known_hosts_cleanup
+  - ssh_user_setup
+
+

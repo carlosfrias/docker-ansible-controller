@@ -1,14 +1,7 @@
 ---
 # tasks file for ssh_known_hosts_cleanup
-- block:
+- name: Remove the old key(s) from known_hosts
+  command: ssh-keygen -R {{ item }}
+  delegate_to: 127.0.0.1
+  with_items: "{{ groups['all'] }}"
 
-  - name: Scan for correct SSH keys
-    command: "ssh-keyscan {{ ansible_host }}"
-    delegate_to: 127.0.0.1
-#    changed_when: False
-
-  rescue:
-
-  - name: Remove the old key(s) from known_hosts
-    shell: ssh-keygen -R {{ ansible_host }}
-    delegate_to: 127.0.0.1
