@@ -1,7 +1,0 @@
----
-# tasks file for ssh_known_hosts_cleanup
-- name: Remove the old key(s) from known_hosts
-  command: ssh-keygen -R {{ item }}
-  delegate_to: 127.0.0.1
-  with_items: "{{ groups['all'] }}"
-

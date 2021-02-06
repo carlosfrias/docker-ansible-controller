@@ -1,9 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include ssh-user-setup"
-      include_role:
-        name: "ssh-user-setup"
-      vars:
-        user_name: "carlos"

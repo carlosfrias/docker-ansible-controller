@@ -1,7 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include ssh_lockdown_login"
-      include_role:
-        name: "ssh_lockdown_login"
